@@ -77,11 +77,22 @@ p { margin: 0 0 1em; }
 .section { padding-block: clamp(56px, 8vw, 104px); }
 
 .section__title {
+  position: relative;
   font-size: clamp(1.55rem, 2.9vw, 2.3rem);
   font-weight: 700;
   text-align: center;
   letter-spacing: -.02em;
   margin-bottom: clamp(32px, 5vw, 56px);
+  padding-bottom: 18px;
+}
+.section__title::after {
+  content: "";
+  position: absolute;
+  left: 50%; bottom: 0;
+  transform: translateX(-50%);
+  width: 58px; height: 3px;
+  border-radius: 2px;
+  background: var(--gold-grad);
 }
 
 .skip-link {
@@ -247,6 +258,16 @@ p { margin: 0 0 1em; }
 
 .hero__content { max-width: 560px; }
 
+.hero__content::before {
+  content: "";
+  display: block;
+  width: 54px; height: 3px;
+  margin-bottom: 22px;
+  border-radius: 2px;
+  background: var(--gold-grad);
+  box-shadow: 0 0 18px rgba(205, 184, 75, .5);
+}
+
 .hero__title {
   font-size: clamp(1.75rem, 3.5vw, 2.75rem);
   font-weight: 700;
@@ -295,26 +316,40 @@ p { margin: 0 0 1em; }
 
 .card {
   position: relative;
+  overflow: hidden;
   background: var(--gold-grad);
+  border: 1px solid rgba(255, 255, 255, .38);
   border-radius: var(--radius);
   padding: 30px 30px 32px;
   box-shadow: var(--shadow-card);
   transition: transform .3s ease, box-shadow .3s ease;
 }
+/* Brilho suave no canto superior, dá volume ao dourado chapado */
+.card::after {
+  content: "";
+  position: absolute;
+  top: -55%; right: -25%;
+  width: 75%; aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, .5) 0%, rgba(255, 255, 255, 0) 68%);
+  pointer-events: none;
+}
+.card > * { position: relative; z-index: 1; }
 .card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 26px 52px rgba(0, 0, 0, .24);
+  box-shadow: 0 26px 52px rgba(0, 0, 0, .26);
 }
 
 .card__icon {
   display: grid;
   place-items: center;
-  width: 34px; height: 34px;
-  border-radius: 7px;
+  width: 44px; height: 44px;
+  border-radius: 12px;
   background: var(--ink-900);
-  margin-bottom: 16px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, .28);
+  margin-bottom: 18px;
 }
-.card__icon svg { width: 22px; height: 22px; fill: var(--white); }
+.card__icon svg { width: 23px; height: 23px; fill: var(--gold-300); }
 
 .card__title {
   font-size: 1.12rem;
@@ -325,8 +360,8 @@ p { margin: 0 0 1em; }
 
 .card__text {
   font-size: .92rem;
-  line-height: 1.6;
-  color: #3d3520;
+  line-height: 1.65;
+  color: #362f15;
   margin: 0;
   font-weight: 500;
 }
@@ -353,11 +388,20 @@ p { margin: 0 0 1em; }
 .diferenciais__content { width: min(560px, 100%); }
 
 .diferenciais__title {
+  position: relative;
   font-size: clamp(1.45rem, 2.7vw, 2.1rem);
   font-weight: 700;
   text-transform: uppercase;
   color: var(--white);
   margin-bottom: 30px;
+  padding-bottom: 16px;
+}
+.diferenciais__title::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 190px; height: 2px;
+  background: linear-gradient(90deg, var(--gold-700), rgba(205, 184, 75, 0));
 }
 
 .diff-list { display: grid; gap: 26px; }
@@ -365,13 +409,25 @@ p { margin: 0 0 1em; }
 .diff__title {
   display: flex;
   align-items: center;
-  gap: 9px;
+  gap: 12px;
   font-size: 1.02rem;
   font-weight: 700;
   color: var(--gold-300);
-  margin-bottom: 7px;
+  margin-bottom: 8px;
 }
-.diff__emoji { font-size: 1.05rem; line-height: 1; }
+
+.diff__icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: rgba(205, 184, 75, .15);
+  border: 1px solid rgba(205, 184, 75, .38);
+}
+.diff__icon svg { width: 17px; height: 17px; fill: var(--gold-300); }
+
+.diff__text { padding-left: 46px; }
 
 .diff__text {
   margin: 0;
@@ -445,12 +501,23 @@ p { margin: 0 0 1em; }
 }
 
 .avaliacoes__title {
+  position: relative;
   font-size: clamp(1.45rem, 2.7vw, 2.1rem);
   font-weight: 700;
   text-transform: uppercase;
   text-align: center;
   color: var(--white);
   margin-bottom: 26px;
+  padding-bottom: 16px;
+}
+.avaliacoes__title::after {
+  content: "";
+  position: absolute;
+  left: 50%; bottom: 0;
+  transform: translateX(-50%);
+  width: 58px; height: 3px;
+  border-radius: 2px;
+  background: var(--gold-grad);
 }
 
 /* ---------- Selo do Google ---------- */
@@ -830,6 +897,7 @@ p { margin: 0 0 1em; }
 
   .areas__grid { grid-template-columns: 1fr; max-width: 520px; }
   .areas__deco { display: none; }
+  .diff__text { padding-left: 0; }
 }
 
 @media (max-width: 760px) {
