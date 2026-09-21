@@ -153,6 +153,11 @@ p { margin: 0 0 1em; }
   min-height: var(--header-h);
 }
 
+.brand {
+  position: relative;
+  z-index: 2;
+}
+
 .brand img {
   width: 92px;
   height: auto;
@@ -576,7 +581,7 @@ p { margin: 0 0 1em; }
 @media (max-width: 860px) {
   :root { --header-h: 76px; }
 
-  .nav-toggle { display: flex; }
+  .nav-toggle { display: flex; position: relative; z-index: 2; }
 
   .nav {
     position: fixed;
