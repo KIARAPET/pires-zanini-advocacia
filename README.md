@@ -9,9 +9,23 @@ Feito em HTML, CSS e JavaScript puros — sem build, sem dependências.
 2. **Nossas Áreas de Atuação** — Trabalhista, Previdenciário, Família e Cível
 3. **O que nos diferencia?** — atendimento personalizado, justiça e excelência, relacionamento duradouro
 4. **Por que escolher nossos serviços?**
-5. **Depoimentos**
+5. **Avaliações do Google** — carrossel com 12 avaliações reais
 6. **Quem somos?**
-7. **Rodapé**
+7. **Contato** — endereço, telefone e mapa
+8. **Rodapé**
+
+## Avaliações
+
+As 12 avaliações do carrossel estão escritas direto no `index.html`, na seção
+`#avaliacoes`. São avaliações reais do perfil do escritório no Google, copiadas
+manualmente — **não atualizam sozinhas**.
+
+O escritório já tem conta no [Trustindex](https://www.trustindex.io), que sincroniza
+as avaliações automaticamente. Se o código de incorporação daquele widget estiver
+disponível, ele substitui o carrossel manual e passa a atualizar sozinho.
+
+O total exibido no selo (`5,0` · `42 avaliações`) também é fixo e precisa ser
+atualizado à mão de tempos em tempos.
 
 ## Como rodar localmente
 

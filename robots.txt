@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kiarapet.github.io/pires-zanini-advocacia/sitemap.xml

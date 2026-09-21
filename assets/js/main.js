@@ -118,3 +118,111 @@ const CONFIG = {
 
   secoes.forEach((secao) => observer.observe(secao));
 })();
+
+/* ---------------------------------------------------------------------
+   Carrossel de avaliações
+   --------------------------------------------------------------------- */
+(function carrosselAvaliacoes() {
+  const trilho = document.getElementById('carrosselTrilho');
+  const pontos = document.getElementById('carrosselPontos');
+  if (!trilho) return;
+
+  const cartoes = [...trilho.children];
+  const anterior = document.querySelector('.carrossel__seta--ant');
+  const proximo = document.querySelector('.carrossel__seta--prox');
+  const semAnimacao = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Quantos cartões cabem lado a lado no tamanho atual da tela */
+  const porPagina = () => {
+    const largura = cartoes[0].getBoundingClientRect().width;
+    return Math.max(1, Math.round(trilho.clientWidth / largura));
+  };
+
+  const totalPaginas = () => Math.ceil(cartoes.length / porPagina());
+
+  /* Posição de rolagem de um cartão, medida no próprio elemento —
+     usar a largura do trilho erraria pelo tamanho do gap. */
+  const posicaoDe = (indice) => cartoes[indice].offsetLeft - cartoes[0].offsetLeft;
+
+  const paginaAtual = () => {
+    let maisProximo = 0;
+    let menorDistancia = Infinity;
+    cartoes.forEach((_, i) => {
+      const distancia = Math.abs(posicaoDe(i) - trilho.scrollLeft);
+      if (distancia < menorDistancia) {
+        menorDistancia = distancia;
+        maisProximo = i;
+      }
+    });
+    return Math.floor(maisProximo / porPagina());
+  };
+
+  const irPara = (pagina) => {
+    const paginas = totalPaginas();
+    const destino = ((pagina % paginas) + paginas) % paginas;
+    const cartao = Math.min(destino * porPagina(), cartoes.length - 1);
+    trilho.scrollTo({
+      left: posicaoDe(cartao),
+      behavior: semAnimacao ? 'auto' : 'smooth'
+    });
+  };
+
+  /* Pontos de navegação */
+  const montarPontos = () => {
+    pontos.innerHTML = '';
+    for (let i = 0; i < totalPaginas(); i += 1) {
+      const botao = document.createElement('button');
+      botao.type = 'button';
+      botao.className = 'ponto';
+      botao.setAttribute('aria-label', `Ir para o grupo ${i + 1} de avaliações`);
+      botao.addEventListener('click', () => { irPara(i); reiniciarAuto(); });
+      pontos.appendChild(botao);
+    }
+    marcarPontoAtivo();
+  };
+
+  const marcarPontoAtivo = () => {
+    const atual = paginaAtual();
+    [...pontos.children].forEach((ponto, i) => {
+      ponto.classList.toggle('is-ativo', i === atual);
+      ponto.setAttribute('aria-current', i === atual ? 'true' : 'false');
+    });
+  };
+
+  anterior?.addEventListener('click', () => { irPara(paginaAtual() - 1); reiniciarAuto(); });
+  proximo?.addEventListener('click', () => { irPara(paginaAtual() + 1); reiniciarAuto(); });
+
+  /* Setas do teclado quando o trilho está em foco */
+  trilho.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') { e.preventDefault(); irPara(paginaAtual() + 1); reiniciarAuto(); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); irPara(paginaAtual() - 1); reiniciarAuto(); }
+  });
+
+  /* Passagem automática — pausa ao interagir */
+  let timer = null;
+  const INTERVALO = 6000;
+
+  const pararAuto = () => { clearInterval(timer); timer = null; };
+  const iniciarAuto = () => {
+    if (semAnimacao || timer || totalPaginas() < 2) return;
+    timer = setInterval(() => irPara(paginaAtual() + 1), INTERVALO);
+  };
+  const reiniciarAuto = () => { pararAuto(); iniciarAuto(); };
+
+  ['mouseenter', 'focusin', 'touchstart', 'pointerdown'].forEach((evento) =>
+    trilho.addEventListener(evento, pararAuto, { passive: true })
+  );
+  ['mouseleave', 'focusout'].forEach((evento) =>
+    trilho.addEventListener(evento, iniciarAuto)
+  );
+
+  document.addEventListener('visibilitychange', () =>
+    document.hidden ? pararAuto() : iniciarAuto()
+  );
+
+  trilho.addEventListener('scroll', marcarPontoAtivo, { passive: true });
+  window.addEventListener('resize', montarPontos);
+
+  montarPontos();
+  iniciarAuto();
+})();
