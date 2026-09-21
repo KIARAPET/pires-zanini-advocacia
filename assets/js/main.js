@@ -8,7 +8,7 @@
 const CONFIG = {
   // Número no formato internacional, somente dígitos: 55 + DDD + número
   whatsapp: '5500000000000',
-  mensagem: 'Olá! Gostaria de solicitar um orçamento com o escritório Pires & Zanini Advocacia.'
+  mensagem: 'Olá! Gostaria de falar com o escritório Pires & Zanini Advocacia.'
 };
 
 /* ---------------------------------------------------------------------

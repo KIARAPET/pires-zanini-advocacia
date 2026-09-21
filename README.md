@@ -5,7 +5,7 @@ Feito em HTML, CSS e JavaScript puros — sem build, sem dependências.
 
 ## Seções
 
-1. **Hero** — chamada principal e CTA de orçamento
+1. **Hero** — chamada principal e CTA de contato
 2. **Nossas Áreas de Atuação** — Trabalhista, Previdenciário, Família e Cível
 3. **O que nos diferencia?** — atendimento personalizado, justiça e excelência, relacionamento duradouro
 4. **Por que escolher nossos serviços?**
@@ -31,12 +31,12 @@ O número de WhatsApp e a mensagem pré-preenchida dos botões ficam no topo de
 ```js
 const CONFIG = {
   whatsapp: '5500000000000', // 55 + DDD + número, só dígitos
-  mensagem: 'Olá! Gostaria de solicitar um orçamento...'
+  mensagem: 'Olá! Gostaria de falar com o escritório...'
 };
 ```
 
 Troque `5500000000000` pelo número real do escritório — todos os botões
-(“Solicite um orçamento”, “Contato” e o botão flutuante) usam esse valor.
+(“Entre em contato”, “Contato” e o botão flutuante) usam esse valor.
 
 As cores ficam nas variáveis CSS no início de
 [`assets/css/style.css`](assets/css/style.css) (`--gold-700`, `--gold-300`, `--ink-900`…).
