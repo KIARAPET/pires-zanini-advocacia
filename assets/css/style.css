@@ -778,15 +778,21 @@ p { margin: 0 0 1em; }
 .quem-somos__content p { font-size: .97rem; line-height: 1.8; margin-bottom: 1.2em; }
 .quem-somos__content .btn { margin-top: 14px; }
 
-.quem-somos__marca {
-  display: grid;
-  place-items: center;
-  pointer-events: none;
+.quem-somos__foto {
+  margin: 0;
+  position: relative;
 }
-.quem-somos__marca img {
-  width: min(400px, 100%);
-  opacity: .9;
-  filter: drop-shadow(0 0 60px rgba(205, 184, 75, .35));
+.quem-somos__foto img {
+  width: 100%;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(205, 184, 75, .45);
+  box-shadow: 0 28px 60px rgba(0, 0, 0, .55);
+}
+.quem-somos__foto figcaption {
+  margin-top: 14px;
+  text-align: center;
+  font-size: .82rem;
+  color: var(--text-light-muted);
 }
 
 /* =====================================================================
@@ -861,8 +867,7 @@ p { margin: 0 0 1em; }
   .diferenciais__content { width: 100%; }
 
   .quem-somos__inner { grid-template-columns: 1fr; }
-  .quem-somos__marca { order: -1; }
-  .quem-somos__marca img { width: min(260px, 60%); }
+  .quem-somos__foto { order: -1; max-width: 460px; }
 }
 
 @media (max-width: 860px) {
