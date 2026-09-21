@@ -293,15 +293,19 @@ p { margin: 0 0 1em; }
    ===================================================================== */
 .areas { position: relative; background: var(--white); overflow: hidden; }
 
-.areas__deco {
+/* Textura das seções claras: risca fina dourada, quase imperceptível,
+   com um halo suave para o branco não ficar chapado. */
+.areas::before,
+.porque::before,
+.contato::before {
+  content: "";
   position: absolute;
-  left: -46px;
-  top: 46%;
-  width: clamp(150px, 15vw, 230px);
-  opacity: .92;
-  transform: rotate(-8deg);
+  inset: 0;
   pointer-events: none;
-  z-index: 0;
+  background:
+    radial-gradient(70% 55% at 88% 6%, rgba(205, 184, 75, .12) 0%, rgba(205, 184, 75, 0) 60%),
+    radial-gradient(60% 50% at 6% 96%, rgba(205, 184, 75, .09) 0%, rgba(205, 184, 75, 0) 62%),
+    repeating-linear-gradient(135deg, rgba(205, 184, 75, .055) 0 1px, rgba(255, 255, 255, 0) 1px 13px);
 }
 
 .areas .container { position: relative; z-index: 1; }
@@ -439,7 +443,8 @@ p { margin: 0 0 1em; }
 /* =====================================================================
    POR QUE ESCOLHER
    ===================================================================== */
-.porque { background: var(--white); }
+.porque { position: relative; background: var(--white); overflow: hidden; }
+.porque .container { position: relative; z-index: 1; }
 
 .porque__card {
   position: relative;
@@ -678,7 +683,8 @@ p { margin: 0 0 1em; }
 /* =====================================================================
    CONTATO
    ===================================================================== */
-.contato { background: var(--white); }
+.contato { position: relative; background: var(--white); overflow: hidden; }
+.contato .container { position: relative; z-index: 1; }
 
 .contato__inner {
   display: grid;
@@ -896,7 +902,6 @@ p { margin: 0 0 1em; }
   }
 
   .areas__grid { grid-template-columns: 1fr; max-width: 520px; }
-  .areas__deco { display: none; }
   .diff__text { padding-left: 0; }
 }
 
